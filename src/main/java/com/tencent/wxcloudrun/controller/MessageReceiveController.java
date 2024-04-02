@@ -3,10 +3,7 @@ package com.tencent.wxcloudrun.controller;
 import com.tencent.wxcloudrun.config.ApiResponse;
 import com.tencent.wxcloudrun.dto.MessageRequest;
 import com.tencent.wxcloudrun.dto.MessageResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -14,7 +11,7 @@ import java.util.Date;
 @RequestMapping("/message")
 public class MessageReceiveController {
 
-    @GetMapping("receive")
+    @PostMapping("receive")
     public Object receive(@RequestBody MessageRequest request){
         if (request.getAction()!=null && request.getAction().equals("CheckContainerPath")){
             System.out.println("收到预检请求");
