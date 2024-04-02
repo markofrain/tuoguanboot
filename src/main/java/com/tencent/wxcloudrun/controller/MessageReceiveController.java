@@ -45,7 +45,7 @@ public class MessageReceiveController {
     }*/
 
     @PostMapping("receive")
-    public Object receive(@RequestBody Map<String,Object> request, HttpServletResponse response) throws IOException {
+    public Object receive(@RequestBody Map<String,Object> request){
 
         // {ToUserName=gh_bd70fc67ee13,
         // FromUserName=o0K-V6oEtzKEGWaB1SJsKQm80bew,
@@ -54,17 +54,13 @@ public class MessageReceiveController {
         // Content=真没了,
         // MsgId=24510694633440943}
         System.out.println("接受消息，消息信息为 " + request.toString());
-        System.out.println("我准备回复消息了");
         Map<String,Object> repmap = new HashMap<>();
         repmap.put("ToUserName",request.get("FromUserName").toString());
         repmap.put("FromUserName",request.get("ToUserName").toString());
         repmap.put("MsgType","text");
         repmap.put("Content",request.get("Content") +",返回给你 收到");
-        repmap.put("CreateTime",new Date().getTime() + "");
+        repmap.put("CreateTime",System.currentTimeMillis()+"");
         System.out.println("我准备回复消息了 " + repmap);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String s = objectMapper.writeValueAsString(repmap);
-        response.getWriter().write(s);
         return repmap;
 
     }
