@@ -6,8 +6,15 @@ import com.tencent.wxcloudrun.dto.MessageResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 微信公众号开发文档地址
+ * https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html
+ * 公众号管理地址
+ * https://mp.weixin.qq.com/advanced/advanced
+ */
 @RestController
 @RequestMapping("/message")
 public class MessageReceiveController {
@@ -34,16 +41,22 @@ public class MessageReceiveController {
     @PostMapping("receive")
     public Object receive(@RequestBody Map<String,Object> request){
 
+        // {ToUserName=gh_bd70fc67ee13,
+        // FromUserName=o0K-V6oEtzKEGWaB1SJsKQm80bew,
+        // CreateTime=1712052047,
+        // MsgType=text,
+        // Content=真没了,
+        // MsgId=24510694633440943}
         System.out.println("接受消息，消息信息为 " + request.toString());
         System.out.println("我准备回复消息了");
-        MessageResponse messageResponse = new MessageResponse();
-        messageResponse.setToUserName(request.get("FromUserName").toString());
-        messageResponse.setFromUserName(request.get("ToUserName").toString());
-        messageResponse.setMsgType("text");
-        messageResponse.setContent("已经收到消息为" + request.get("content") +",返回给你 收到");
-        messageResponse.setCreateTime(new Date().getTime() + "");
-        System.out.println(messageResponse);
-        return messageResponse;
+        Map<String,Object> response = new HashMap<>();
+        response.put("ToUserName",request.get("FromUserName").toString());
+        response.put("FromUserName",request.get("ToUserName").toString());
+        response.put("MsgType",request.get("FromUserName").toString());
+        response.put("Content",request.get("content") +",返回给你 收到");
+        response.put("CreateTime",new Date().getTime() + "");
+        System.out.println("我准备回复消息了 " + response);
+        return response;
 
     }
 }
