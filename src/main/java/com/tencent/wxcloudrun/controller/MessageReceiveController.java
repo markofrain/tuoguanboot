@@ -58,8 +58,8 @@ public class MessageReceiveController {
         Map<String,Object> repmap = new HashMap<>();
         repmap.put("ToUserName",request.get("FromUserName").toString());
         repmap.put("FromUserName",request.get("ToUserName").toString());
-        repmap.put("MsgType",request.get("FromUserName").toString());
-        repmap.put("Content",request.get("content") +",返回给你 收到");
+        repmap.put("MsgType","text");
+        repmap.put("Content",request.get("Content") +",返回给你 收到");
         repmap.put("CreateTime",new Date().getTime() + "");
         System.out.println("我准备回复消息了 " + repmap);
         ObjectMapper objectMapper = new ObjectMapper();
